@@ -4,7 +4,7 @@ var faunadb = require("faunadb"),
   q = faunadb.query;
 
 var client = new faunadb.Client({
-  secret: FAUNA_SECURITY,
+  secret: `${process.env.FAUNA_SECURITY}`,
   domain: "db.fauna.com",
   // NOTE: Use the correct domain for your database's Region Group.
   port: 443,
