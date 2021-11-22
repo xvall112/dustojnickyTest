@@ -4,6 +4,8 @@ import Layout from "../components/layout";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 const ADD_QUESTION = gql`
   # Increments a back-end counter and gets its resulting value
@@ -15,11 +17,38 @@ const ADD_QUESTION = gql`
   }
 `;
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 const Add = () => {
-  const [addQuestion, { data, loading, error }] = useMutation(ADD_QUESTION);
+  const [addQuestion, { data, loading, error }] = useMutation(ADD_QUESTION, {
+    onError: () => {
+      handleClick("error", "Otazka jiz existuje");
+    },
+    onCompleted: () => {
+      handleClick("success", "Pridano");
+    },
+  });
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+  const [open, setOpen] = React.useState(false);
+  const [text, setText] = React.useState("");
+  const [severity, setSeverity] = useState("success");
 
+  const handleClick = async (severity, text) => {
+    await setText(text);
+    await setSeverity(severity);
+    await setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
   const handleChangeQuestion = (e) => {
     setQuestion(e.target.value);
     console.log(question);
@@ -29,10 +58,19 @@ const Add = () => {
     setAnswer(e.target.value);
     console.log(answer);
   };
-  if (error) return `Submission error! ${error.message}`;
+
   return (
     <Layout>
       <div>
+        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+          <Alert
+            onClose={handleClose}
+            severity={severity}
+            sx={{ width: "100%" }}
+          >
+            {text}
+          </Alert>
+        </Snackbar>
         <h1>Pridani otazek</h1>
       </div>
       <form
