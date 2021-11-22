@@ -21,5 +21,11 @@ module.exports = {
       },
       __key: "images",
     },
+    {
+      resolve: "gatsby-plugin-apollo",
+      options: {
+        uri: "http://localhost:8888/.netlify/functions/graphql",
+      },
+    },
   ],
 };
