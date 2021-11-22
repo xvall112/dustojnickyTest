@@ -6,7 +6,7 @@ import {
 } from "@apollo/client";
 
 const httpLink = createHttpLink({
-  uri: `http://localhost:8888/.netlify/functions/graphql`,
+  uri: `https://flamboyant-lamport-d7a378.netlify.app/.netlify/functions/graphql`,
 });
 
 const link = ApolloLink.from([httpLink]);
