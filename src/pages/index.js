@@ -1,4 +1,5 @@
 import * as React from "react";
+import { debounce } from "debounce";
 import { useQuery, gql } from "@apollo/client";
 import { Alert, Skeleton, Stack } from "@mui/material";
 import AlertTitle from "@mui/material/AlertTitle";
@@ -9,7 +10,7 @@ import FormControl from "@mui/material/FormControl";
 import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
-
+import Chip from "@mui/material/Chip";
 import Layout from "../components/layout";
 // styles
 
@@ -34,10 +35,9 @@ const FIND_QUESTION = gql`
 const IndexPage = () => {
   const [search, setSearch] = React.useState("");
 
-  const handleChange = setTimeout((event) => {
+  const handleChange = debounce((event) => {
     setSearch(event.target.value);
-    console.log(search);
-  },500);
+  }, 500);
 
   const handleClear = () => {
     setSearch("");
@@ -45,6 +45,9 @@ const IndexPage = () => {
 
   const { data, loading, error } = useQuery(FIND_QUESTION, {
     variables: { input: search },
+    onCompleted: () => {
+      console.log("search");
+    },
   });
   console.log(data);
   if (error) return <p>Error :{error.message} </p>;
@@ -52,19 +55,26 @@ const IndexPage = () => {
   return (
     <Layout>
       <main>
-        <h1>Search</h1>
+        <Stack
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="center"
+          spacing={3}
+        >
+          <h1>Search</h1>
+          <Chip label={!loading && data.findQuestion.length} />
+        </Stack>
         <FormControl fullWidth sx={{ m: 1 }}>
           <InputLabel htmlFor="outlined-adornment-amount">Vyhledat</InputLabel>
           <OutlinedInput
             id="outlined-adornment-amount"
-            
             onChange={handleChange}
             startAdornment={
               <InputAdornment position="start">
                 <SearchIcon />
               </InputAdornment>
             }
-            endAdornment={
+            /* endAdornment={
               <InputAdornment position="end">
                 <IconButton
                   aria-label="delete"
@@ -75,7 +85,7 @@ const IndexPage = () => {
                   <ClearIcon />
                 </IconButton>
               </InputAdornment>
-            }
+            } */
             label="Amount"
           />
         </FormControl>
