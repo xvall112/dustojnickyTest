@@ -34,10 +34,10 @@ const FIND_QUESTION = gql`
 const IndexPage = () => {
   const [search, setSearch] = React.useState("");
 
-  const handleChange = (event) => {
+  const handleChange = setTimeout((event) => {
     setSearch(event.target.value);
     console.log(search);
-  };
+  },500);
 
   const handleClear = () => {
     setSearch("");
@@ -57,7 +57,7 @@ const IndexPage = () => {
           <InputLabel htmlFor="outlined-adornment-amount">Vyhledat</InputLabel>
           <OutlinedInput
             id="outlined-adornment-amount"
-            value={search}
+            
             onChange={handleChange}
             startAdornment={
               <InputAdornment position="start">
