@@ -49,7 +49,7 @@ const resolvers = {
       var findQuestions = await client.query(
         q.Map(
           q.Filter(
-            q.Paginate(q.Match(q.Index("getQuetion")), { size: 200 }),
+            q.Paginate(q.Match(q.Index("getQuetion")), { size: 300 }),
             q.Lambda(
               "planetRef",
               q.ContainsStr(
