@@ -24,7 +24,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-apollo",
       options: {
-        uri: "https://flamboyant-lamport-d7a378.netlify.app/.netlify/functions/graphql",
+        uri: "https://zdk.netlify.app/.netlify/functions/graphql",
       },
     },
   ],
