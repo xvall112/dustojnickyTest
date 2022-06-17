@@ -32,26 +32,26 @@ const resolvers = {
       var findQuestions = await client.query(
         q.Map(
           q.Filter(
-            q.Paginate(q.Match(q.Index("getQuetion")), { size: 300 }),
+            q.Paginate(q.Match(q.Index("all_Questions")), { size: 1000 }),
             q.Lambda(
-              "planetRef",
+              "questionRef",
               q.ContainsStr(
                 q.LowerCase(
-                  q.Select(["data", "question"], q.Get(q.Var("planetRef")))
+                  q.Select(["data", "question"], q.Get(q.Var("questionRef")))
                 ),
-                input
+                input.toLowerCase()
               )
             )
           ),
           q.Lambda(
-            "planetRef",
+            "questionRef",
             q.Let(
               {
-                shipDoc: q.Get(q.Var("planetRef")),
+                questionDoc: q.Get(q.Var("questionRef")),
               },
               {
-                question: q.Select(["data", "question"], q.Var("shipDoc")),
-                answer: q.Select(["data", "answer"], q.Var("shipDoc")),
+                question: q.Select(["data", "question"], q.Var("questionDoc")),
+                answer: q.Select(["data", "answer"], q.Var("questionDoc")),
               }
             )
           )

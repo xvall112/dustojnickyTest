@@ -44,7 +44,7 @@ const IndexPage = () => {
   };
 
   const { data, loading, error } = useQuery(FIND_QUESTION, {
-    variables: { input: search, limit: 10 },
+    variables: { input: search.toLowerCase() },
     onCompleted: () => {
       console.log("search");
     },
