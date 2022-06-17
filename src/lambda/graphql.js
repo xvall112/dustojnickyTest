@@ -29,34 +29,48 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     findQuestion: async (parent, { input }, context) => {
-      var findQuestions = await client.query(
-        q.Map(
-          q.Filter(
-            q.Paginate(q.Match(q.Index("all_Questions")), { size: 1000 }),
+      var findQuestions;
+      if (input === "") {
+        findQuestions = [
+          {
+            question: "zadejte otázku do vyhledávání",
+            answer:
+              "vyhledávání funguje fulltextově, stačí zadat jedno slovo nebo část otázky",
+          },
+        ];
+        return findQuestions;
+      } else
+        findQuestions = await client.query(
+          q.Map(
+            q.Filter(
+              q.Paginate(q.Match(q.Index("all_Questions")), { size: 1000 }),
+              q.Lambda(
+                "questionRef",
+                q.ContainsStr(
+                  q.LowerCase(
+                    q.Select(["data", "question"], q.Get(q.Var("questionRef")))
+                  ),
+                  input.toLowerCase()
+                )
+              )
+            ),
             q.Lambda(
               "questionRef",
-              q.ContainsStr(
-                q.LowerCase(
-                  q.Select(["data", "question"], q.Get(q.Var("questionRef")))
-                ),
-                input.toLowerCase()
+              q.Let(
+                {
+                  questionDoc: q.Get(q.Var("questionRef")),
+                },
+                {
+                  question: q.Select(
+                    ["data", "question"],
+                    q.Var("questionDoc")
+                  ),
+                  answer: q.Select(["data", "answer"], q.Var("questionDoc")),
+                }
               )
             )
-          ),
-          q.Lambda(
-            "questionRef",
-            q.Let(
-              {
-                questionDoc: q.Get(q.Var("questionRef")),
-              },
-              {
-                question: q.Select(["data", "question"], q.Var("questionDoc")),
-                answer: q.Select(["data", "answer"], q.Var("questionDoc")),
-              }
-            )
           )
-        )
-      );
+        );
       return findQuestions.data;
     },
   },

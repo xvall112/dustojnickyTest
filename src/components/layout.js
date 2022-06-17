@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
-import { Grid, Container } from "@mui/material";
+import { Grid, Container, Stack } from "@mui/material";
 const pageStyles = {
   color: "#232129",
 
@@ -10,6 +10,9 @@ const Layout = ({ children }) => {
   return (
     <div style={pageStyles}>
       <Container>
+        <Stack direction="row" justifyContent="center" alignItems="center">
+          <h2>Základní důstojnický kurz</h2>
+        </Stack>
         <Grid container direction="row" spacing={3}>
           <Grid item>
             <Link to="/">Vyhledat otázky</Link>

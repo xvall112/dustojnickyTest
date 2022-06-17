@@ -39,6 +39,9 @@ const IndexPage = () => {
     setSearch(event.target.value);
   }, 500);
 
+  const handleChangeS = (event) => {
+    setSearch(event.target.value);
+  };
   const handleClear = () => {
     setSearch("");
   };
@@ -74,7 +77,7 @@ const IndexPage = () => {
                 <SearchIcon />
               </InputAdornment>
             }
-            /* endAdornment={
+            endAdornment={
               <InputAdornment position="end">
                 <IconButton
                   aria-label="delete"
@@ -85,7 +88,7 @@ const IndexPage = () => {
                   <ClearIcon />
                 </IconButton>
               </InputAdornment>
-            } */
+            }
             label="Amount"
           />
         </FormControl>
