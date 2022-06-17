@@ -44,7 +44,7 @@ const IndexPage = () => {
   };
 
   const { data, loading, error } = useQuery(FIND_QUESTION, {
-    variables: { input: search },
+    variables: { input: search, limit: 10 },
     onCompleted: () => {
       console.log("search");
     },
@@ -61,7 +61,7 @@ const IndexPage = () => {
           alignItems="center"
           spacing={3}
         >
-          <h1>Search</h1>
+          <h1>Vyhledat</h1>
           <Chip label={!loading && data.findQuestion.length} />
         </Stack>
         <FormControl fullWidth sx={{ m: 1 }}>

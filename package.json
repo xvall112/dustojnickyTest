@@ -12,9 +12,8 @@
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
-    "start:lambda": "netlify-lambda start src/lambda",
-    "build:lambda": "netlify-lambda build src/lambda",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "netlify": "netlify dev"
   },
   "dependencies": {
     "@apollo/client": "^3.4.17",

@@ -12,10 +12,10 @@ const Layout = ({ children }) => {
       <Container>
         <Grid container direction="row" spacing={3}>
           <Grid item>
-            <Link to="/">Search</Link>
+            <Link to="/">Vyhledat otázky</Link>
           </Grid>
           <Grid item>
-            <Link to="/add">Add</Link>
+            <Link to="/add">Přidat otázky</Link>
           </Grid>
         </Grid>
 

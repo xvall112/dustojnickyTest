@@ -4,8 +4,8 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://www.yourdomain.tld",
-    title: "zkouska fauna",
+    siteUrl: "https://zdk.netlify.app",
+    title: "základní důstojnický kurz",
   },
   plugins: [
     `gatsby-plugin-material-ui`,
