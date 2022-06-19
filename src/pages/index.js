@@ -37,13 +37,12 @@ const IndexPage = () => {
 
   const handleChange = debounce((event) => {
     setSearch(event.target.value);
+    console.log("push");
   }, 500);
 
-  const handleChangeS = (event) => {
-    setSearch(event.target.value);
-  };
   const handleClear = () => {
     setSearch("");
+    document.getElementById("search-question").value = "";
   };
 
   const { data, loading, error } = useQuery(FIND_QUESTION, {
@@ -70,7 +69,7 @@ const IndexPage = () => {
         <FormControl fullWidth sx={{ m: 1 }}>
           <InputLabel htmlFor="outlined-adornment-amount">Vyhledat</InputLabel>
           <OutlinedInput
-            id="outlined-adornment-amount"
+            id="search-question"
             onChange={handleChange}
             startAdornment={
               <InputAdornment position="start">

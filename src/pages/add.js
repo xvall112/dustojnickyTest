@@ -71,7 +71,7 @@ const Add = () => {
             {text}
           </Alert>
         </Snackbar>
-        <h1>Pridani otazek</h1>
+        <h1>Přidat otázku</h1>
       </div>
       <form
         onSubmit={(e) => {
